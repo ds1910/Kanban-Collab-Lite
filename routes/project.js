@@ -6,6 +6,7 @@ const {
   changeProjectName,
   changeProjectVisibility,
   changeProjectArchive,
+  addMemberToProject,
 } = require("../controller/project");
 
 const router = express.Router();
@@ -26,4 +27,7 @@ router.route("/:uuid/visibility")
 router.route("/:uuid/archive")
   .patch(changeProjectArchive);
 
+
+  router.route("/:uuid/addmember").patch(addMemberToProject);
+    
 module.exports = router;
