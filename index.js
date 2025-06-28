@@ -16,8 +16,7 @@ const isError = require("./middleware/error"); // Centralized error handler
 
 // Routers
 const userRouter = require("./routes/user");
-const mediaRouter = require("./routes/media");
-
+const projectRouter = require("./routes/project");
 
 // App initialization
 const app = express();
@@ -41,7 +40,7 @@ app.use(logReqRes("log.txt"));
 
 
 // Connect to MongoDB
-connectMongoDb("mongodb://127.0.0.1:27017/FileNest")
+connectMongoDb("mongodb://127.0.0.1:27017/Kanban-Collab")
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
@@ -49,11 +48,7 @@ connectMongoDb("mongodb://127.0.0.1:27017/FileNest")
 
 // Public and protected routes
 app.use("/user", userRouter); // Signup/Login/Logout routes
-
-
-// Protected media routes (require authentication middleware)
-app.use("/media", checkAuthentication, mediaRouter);
-
+app.use("/project",checkAuthentication,projectRouter);
 
 // Error-handling middleware (should always be at the end)
 app.use(isError);
