@@ -1,12 +1,32 @@
 // Core dependencies
 const express = require("express");
 const path = require("path");
+const http = require("http");
+const {Server} = require("socket.io");
+
+const cors = require("cors");
 const cookieParser = require("cookie-parser");
 require("dotenv").config(); // Load environment variables
 
 
+// App initialization
+const app = express();
+const port = process.env.PORT || 3000;
+
+
 // MongoDB connection function
 const connectMongoDb = require("./connection"); 
+const intiSocket = require("./socket");
+const server = http.createServer(app);
+
+// socket connection
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+  },
+});
+
+intiSocket(io);
 
 
 // Middlewares
@@ -18,10 +38,6 @@ const isError = require("./middleware/error"); // Centralized error handler
 const userRouter = require("./routes/user");
 const projectRouter = require("./routes/project");
 const bugRouter = require("./routes/bug");
-
-// App initialization
-const app = express();
-const port = process.env.PORT || 3000;
 
 
 // View engine setup (EJS for rendering HTML templates)
@@ -54,7 +70,6 @@ app.use("/bug",checkAuthentication,bugRouter);
 
 // Error-handling middleware (should always be at the end)
 app.use(isError);
-
 
 
 // Start the server

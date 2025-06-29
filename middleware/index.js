@@ -48,8 +48,8 @@ const checkAuthentication = (req, res, next) => {
   const accessToken = req.cookies?.accessToken;
   const refreshToken = req.cookies?.refreshToken;
 
-  console.log("accessToken:", accessToken);
-  console.log("refreshToken:", refreshToken);
+  // console.log("accessToken:", accessToken);
+  // console.log("refreshToken:", refreshToken);
 
   if (!accessToken) {
     if (!refreshToken) {
