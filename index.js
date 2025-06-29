@@ -17,6 +17,7 @@ const isError = require("./middleware/error"); // Centralized error handler
 // Routers
 const userRouter = require("./routes/user");
 const projectRouter = require("./routes/project");
+const bugRouter = require("./routes/bug");
 
 // App initialization
 const app = express();
@@ -49,6 +50,7 @@ connectMongoDb("mongodb://127.0.0.1:27017/Kanban-Collab")
 // Public and protected routes
 app.use("/user", userRouter); // Signup/Login/Logout routes
 app.use("/project",checkAuthentication,projectRouter);
+app.use("/bug",checkAuthentication,bugRouter);
 
 // Error-handling middleware (should always be at the end)
 app.use(isError);

@@ -13,7 +13,7 @@ const BugSchema = new mongoose.Schema(
     },
     projectId: {
       type: String,
-      ref: "Project",
+     // ref: "Project",
       required: true,
     },
     tags: {
